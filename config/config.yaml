@@ -1,0 +1,11 @@
+telegram:
+  enabled: true
+  token: "REDACTED"
+  chat_id: "REDACTED"
+
+monitor:
+  keywords:
+    - example
+    - test-alert
+    - password
+    - leak
