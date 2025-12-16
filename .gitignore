@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Output
+output/*
+!output/.gitkeep
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
