@@ -1,4 +1,4 @@
 telegram:
   enabled: true
-  token: "REDACTED"
-  chat_id: "REDACTED"
+  token: "your token"
+  chat_id: "your id telegram"
