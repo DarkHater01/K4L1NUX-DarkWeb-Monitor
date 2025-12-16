@@ -1,9 +1,20 @@
-# 🕵️ K4L1NUX Dark Web Monitor
+# 🕵️‍♂️ K4L1NUX Dark Web Monitor
 
-Monitor open-source para rastrear filtraciones y menciones en la Dark Web usando Tor.
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Tor Required](https://img.shields.io/badge/Tor-Required-orange.svg)](https://www.torproject.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-⚠️ Proyecto en desarrollo (v0.1)
+**Monitor defensivo que escanea la Dark Web para detectar filtraciones de datos antes de que sean explotadas**
 
-## Uso rápido
+⚠️ **Aviso importante**: Este proyecto es 100% educativo. No almacena datos personales y usa hashing para proteger la privacidad.
+
+---
+
+## ⚡ **Demo rápida**
+
 ```bash
-python3 src/main.py --url http://exampleonion.onion
+# Clona y prueba en 30 segundos
+git clone https://github.com/tuusuario/K4L1NUX-DarkWeb-Monitor.git
+cd K4L1NUX-DarkWeb-Monitor
+python3 src/main.py --test
