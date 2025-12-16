@@ -17,4 +17,4 @@ COPY src/ ./src/
 COPY config/ ./config/
 
 # Comando por defecto
-ENTRYPOINT ["python3", "src/main.py"]
+ENTRYPOINT ["python3", "-m", "src.main"]

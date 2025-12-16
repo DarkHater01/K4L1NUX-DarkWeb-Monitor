@@ -5,4 +5,4 @@ logging.basicConfig(
     format="[%(levelname)s] %(message)s"
 )
 
-logger = logging.getLogger("K4L1NUX-DWM")
+logger = logging.getLogger("K4L1NUX-DarkWeb Monitor")

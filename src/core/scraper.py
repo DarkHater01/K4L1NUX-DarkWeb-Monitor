@@ -1,6 +1,7 @@
-from .tor_client import TorClient
-from .parser import Parser
-from ..utils.logger import logger
+from src.core.tor_client import TorClient
+from src.core.parser import Parser
+from src.utils.logger import logger
+
 
 class Scraper:
     def __init__(self, url):
