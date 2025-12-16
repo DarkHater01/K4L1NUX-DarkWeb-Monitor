@@ -257,7 +257,7 @@ Las contribuciones están abiertas. Sigue estos pasos:
 ¡Nos encantaría saberlo! Abre un issue o contáctanos.
 
 ## ☕ ¿Quieres apoyar el desarrollo?
-Considera [sponsorizar](https://github.com/sponsors/tuusuario) para nuevas features.
+Considera [sponsorizar](https://github.com/sponsors/DarkHater01) para nuevas features.
 
 ---
 
@@ -267,7 +267,7 @@ Distribuido bajo la licencia MIT. Ver `LICENSE` para más información.
 
 ## 📞 Contacto
 
-Tu Nombre - [@tu_twitter](https://twitter.com/tu_twitter) - email@ejemplo.com
+Tu Nombre - [@tu_twitter](https://twitter.com/k4l1nux) - email@ejemplo.com
 
 Link del proyecto: [https://github.com/tuusuario/K4L1NUX-DarkWeb-Monitor](https://github.com/tuusuario/K4L1NUX-DarkWeb-Monitor)
 
