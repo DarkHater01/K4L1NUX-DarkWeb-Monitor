@@ -1,0 +1,11 @@
+telegram:
+  enabled: true
+  token: "7991918230:AAHo2-vGYXuCRb8l8qMfSOE62TfKmAo6HaQ"
+  chat_id: "1170361578"
+
+monitor:
+  keywords:
+    - example
+    - test-alert
+    - password
+    - leak
