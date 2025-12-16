@@ -187,20 +187,20 @@ database leak
 
 ---
 
-## 🗺️ Roadmap 2024
+## 🗺️ Roadmap 2026
 
-### Q2 2024 - v1.0 (Estable)
+### Q2 2026 - v1.0 (Estable)
 - [x] Core scraping engine
 - [ ] 10+ módulos de foros .onion
 - [ ] Alertas en tiempo real
 - [ ] Dashboard web básico
 
-### Q3 2024 - v2.0 (ML)
+### Q3 2026 - v2.0 (ML)
 - [ ] Detección automática de leaks con IA
 - [ ] API REST
 - [ ] Plugins para SIEM (Splunk, Elastic)
 
-### Q4 2024 - v3.0 (Enterprise)
+### Q4 2026 - v3.0 (Enterprise)
 - [ ] Autenticación multiusuario
 - [ ] Reportes automáticos PDF
 - [ ] Integración con VirusTotal, HaveIBeenPwned
