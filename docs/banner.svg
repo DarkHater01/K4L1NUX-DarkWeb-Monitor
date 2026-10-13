@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="200" viewBox="0 0 1000 200" role="img" aria-label="K4L1NUX Dark Web Monitor">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#79c0ff"/>
+      <stop offset="1" stop-color="#1f6feb"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1f6feb"/>
+      <stop offset="0.5" stop-color="#79c0ff"/>
+      <stop offset="1" stop-color="#1f6feb"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="200" rx="16" fill="url(#bg)" stroke="#30363d" stroke-width="1"/>
+  <rect x="16" y="16" width="968" height="3" rx="1.5" fill="url(#bar)" opacity="0.9"/>
+
+  <g transform="translate(60,30)">
+    <path d="M57 12 L114 33 V80 C114 118 57 138 57 138 C57 138 0 118 0 80 V33 Z"
+          fill="url(#shield)" opacity="0.16" stroke="url(#shield)" stroke-width="3"/>
+    <circle cx="57" cy="70" r="24" fill="none" stroke="url(#shield)" stroke-width="7"/>
+    <line x1="75" y1="88" x2="94" y2="107" stroke="url(#shield)" stroke-width="9" stroke-linecap="round"/>
+  </g>
+
+  <text x="220" y="92" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="40" font-weight="700" fill="#c9d1d9">K4L1NUX Dark Web Monitor</text>
+  <text x="222" y="128" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" fill="#8b949e">Defensive leak detection · Tor · SHA-256 privacy</text>
+
+  <g transform="translate(880,74)">
+    <rect width="88" height="34" rx="17" fill="#1f6feb" opacity="0.18" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="44" y="23" text-anchor="middle" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="16" font-weight="700" fill="#79c0ff">v1.0</text>
+  </g>
+</svg>

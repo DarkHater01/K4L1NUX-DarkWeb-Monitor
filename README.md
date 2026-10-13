@@ -276,13 +276,8 @@ Link del proyecto: [https://github.com/DarkHater01/K4L1NUX-DarkWeb-Monitor](http
 
 ---
 
-```
-🛡️ K4L1NUX 
-   ___       __   __    ___  _   _ _  __
-  / _ \___  / /  / /   / _ \/ | / | |/ /
- / // / _ \/ /__/ /__ / , _/| |/ /|   / 
-/____/\___/____/____/_/|_| |___/ |__/  
-     DARK WEB MONITOR v0.1
-```
+<p align="center">
+  <img src="docs/banner.svg" alt="K4L1NUX Dark Web Monitor" width="100%"/>
+</p>
 
 **"Protegiendo datos, preservando privacidad"** 🔒
