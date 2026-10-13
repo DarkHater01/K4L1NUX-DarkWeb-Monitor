@@ -32,7 +32,7 @@ Salida esperada:
 ...
 ```
 
-![Demo de K4L1NUX DarkWeb Monitor](docs/demo.png)
+![Demo de K4L1NUX DarkWeb Monitor](docs/demo.gif)
 
 ---
 
