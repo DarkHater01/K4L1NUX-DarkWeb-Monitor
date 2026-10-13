@@ -1,0 +1,9 @@
+[DUMP SINTETICO - DATOS FALSOS PARA DEMO]
+
+forum: acmecorp leaks
+user: john.doe@acmecorp.com
+pass_hash: 5f4dcc3b5aa765d61d8327deb882cf99
+bcrypt: $2b$12$KIXQ3j2Yl9wZ0oQ2f4J3Ke1b7c8d9e0f1g2h3i4j5k6l7m8n9o0p1
+card: 4111 1111 1111 1111
+admin: admin@example.org
+note: credenciales de prueba, no reales

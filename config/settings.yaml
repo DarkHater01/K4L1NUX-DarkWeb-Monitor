@@ -1,4 +1,4 @@
 telegram:
-  enabled: true
+  enabled: false
   token: "your token"
   chat_id: "your id telegram"

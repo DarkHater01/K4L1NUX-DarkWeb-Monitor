@@ -15,6 +15,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar el código del proyecto
 COPY src/ ./src/
 COPY config/ ./config/
+COPY examples/ ./examples/
+
+# Ejecutar como usuario sin privilegios
+RUN useradd --create-home monitor
+USER monitor
 
 # Comando por defecto
 ENTRYPOINT ["python3", "-m", "src.main"]

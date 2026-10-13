@@ -1,9 +1,9 @@
 # 🕵️‍♂️ K4L1NUX Dark Web Monitor
 
+[![CI](https://github.com/DarkHater01/K4L1NUX-DarkWeb-Monitor/actions/workflows/ci.yml/badge.svg)](https://github.com/DarkHater01/K4L1NUX-DarkWeb-Monitor/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Tor Required](https://img.shields.io/badge/Tor-Required-orange.svg)](https://www.torproject.org/)
+[![Tests](https://img.shields.io/badge/tests-pytest-brightgreen.svg)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 **Monitor defensivo que escanea la Dark Web para detectar filtraciones de datos antes de que sean explotadas**
 
@@ -11,14 +11,46 @@
 
 ---
 
-## ⚡ Demo rápida
+## ⚡ Demo rápida (sin Tor, 30 segundos)
 
 ```bash
-# Clona y prueba en 30 segundos
-git clone https://github.com/tuusuario/K4L1NUX-DarkWeb-Monitor.git
+git clone https://github.com/DarkHater01/K4L1NUX-DarkWeb-Monitor.git
 cd K4L1NUX-DarkWeb-Monitor
-python3 src/main.py --test
+pip install -r requirements.txt
+
+# Escanea un ejemplo sintético incluido y muestra los hallazgos
+python -m src.main --test
 ```
+
+Salida esperada:
+
+```
+[INFO] 8 hallazgo(s) en examples/sample_leak.txt
+[INFO] [CRITICAL] CARD 41************11  fp=9bbef1947662
+[INFO] [HIGH] EMAIL jo*****************om  fp=eeb82df72c14
+[INFO] [MEDIUM] HASH 5f****************************99  fp=3f2cd8e57b09
+...
+```
+
+![Demo de K4L1NUX DarkWeb Monitor](docs/demo.png)
+
+---
+
+## 🔍 Motor de detección
+
+El núcleo es un motor de detección **offline y determinista** (`src/modules/leak_detector.py`),
+testeable sin red ni Tor. Detecta:
+
+| Tipo | Severidad | Regla |
+|------|-----------|-------|
+| 💳 Tarjeta | CRITICAL | patrón + validación **Luhn** |
+| 🔑 Email | HIGH | regex |
+| 🔐 Hash bcrypt | HIGH | `$2a/$2b/$2y$` |
+| # Hash md5/sha | MEDIUM | 32–64 hex |
+| 🔎 Keyword | LOW | lista en `config/keywords.txt` |
+
+Cada hallazgo se guarda **enmascarado** y con `fingerprint` SHA-256: nunca se
+persiste el valor en claro.
 
 ---
 
@@ -31,37 +63,24 @@ python3 src/main.py --test
 
 ---
 
-## 📊 Métricas que detecta
-
-| Tipo | Ejemplo | Alerta |
-|------|---------|--------|
-| 🔑 Credenciales | emails@empresa.com | ⚠️ Alta |
-| 💳 Tarjetas | 4111-1111-1111-1111 | ⚠️ Crítica |
-| 🔐 Hashes | 5f4dcc3b5aa765d61d8327deb882cf99 | 🔍 Media |
-| 📧 Dominios | @empresa.com | 👁️ Monitoreo |
-
----
-
 ## 🚀 Características Principales
 
-- ✔ Scraping anónimo a través de **Tor**
-- ✔ Soporte para múltiples sitios **.onion**
-- ✔ **Anti-detection** básico (random user agents, delays, rotación)
-- ✔ Detección de keywords en tiempo real
-- ✔ Alertas por **Telegram, Discord y Email**
-- ✔ Exportación en **JSON y Markdown**
-- ✔ Arquitectura modular (fácil de extender)
+- ✔ Motor de detección de leaks (tarjetas con Luhn, emails, hashes, keywords)
+- ✔ Modo **offline** para auditar ficheros locales (sin Tor)
+- ✔ Scraping anónimo a través de **Tor** (`--url`)
+- ✔ Alertas por **Telegram**
+- ✔ Exportación en **JSON**
+- ✔ Arquitectura modular y con **tests** (pytest + CI)
 - ✔ Dockerfile incluido (ejecución aislada)
-- ✔ Logs limpios y cifrado/hash para privacidad
 
 ---
 
 ## 🛡️ Características de Seguridad
 
-- ✅ **Sin almacenamiento de datos crudos** - Todo se hashea
+- ✅ **Sin almacenamiento de datos crudos** - Solo máscara + fingerprint SHA-256
 - ✅ **Solo lectura** - No interactúa con sitios
-- ✅ **Anonimato completo** - Todo pasa por Tor
-- ✅ **Logs sanitizados** - No expone información sensible
+- ✅ **Anonimato** - El tráfico `--url` pasa por Tor; las alertas salen directas
+- ✅ **Sal configurable** - `K4L1NUX_SALT` para fingerprints por-deployment
 
 ---
 
@@ -70,12 +89,13 @@ python3 src/main.py --test
 ```
 K4L1NUX-DarkWeb-Monitor/
 ├── src/
-│   ├── core/           # Tor Client, Scraper Framework, Parser, Hasher, Alerts
-│   ├── modules/        # Sitios específicos (.onion)
-│   ├── utils/          # Logger, Config Loader
-│   └── main.py         # Entry point
-├── config/             # Configuración y keywords
-├── output/             # Resultados exportados
+│   ├── core/           # Tor client, parser HTML, hasher, alertas
+│   ├── modules/        # Motor de detección de leaks
+│   ├── utils/          # Logger, config loader
+│   └── main.py         # Entry point (CLI)
+├── config/             # Keywords y settings (Telegram)
+├── examples/           # Muestra sintética para el modo --test
+├── tests/              # Suite pytest
 ├── requirements.txt    # Dependencias Python
 └── Dockerfile          # Contenedor aislado
 ```
@@ -85,8 +105,8 @@ K4L1NUX-DarkWeb-Monitor/
 ## 🔧 Requisitos
 
 - Python 3.10+
-- Tor instalado y corriendo en socks5://127.0.0.1:9050
-- Linux recomendado
+- Para el modo `--url`: Tor corriendo en `socks5h://127.0.0.1:9050`
+- El modo `--test` y `--file` **no** requieren Tor
 
 ### Instalar dependencias:
 
@@ -104,21 +124,27 @@ sudo systemctl start tor
 
 ---
 
-## ▶️ Uso básico
+## ▶️ Uso
 
 ```bash
-# Ejecutar con keywords por defecto
-python3 src/main.py
+# Demo offline con el ejemplo incluido (sin Tor)
+python -m src.main --test
 
-# Especificar archivo de keywords personalizado
-python3 src/main.py --keywords config/my_keywords.txt
+# Auditar un fichero local
+python -m src.main --file /ruta/dump.txt
 
-# Especificar archivo de salida
-python3 src/main.py --output output/mis_resultados.json
+# Escanear un .onion a través de Tor
+python -m src.main --url http://xxxxx.onion
 
-# Modo debug (más información)
-python3 src/main.py --debug
+# Salida en JSON
+python -m src.main --test --json
+
+# Keywords personalizadas
+python -m src.main --file dump.txt --keywords config/my_keywords.txt
 ```
+
+Las alertas por Telegram solo se envían si `telegram.enabled: true` en
+`config/settings.yaml` y hay hallazgos.
 
 ---
 
@@ -133,77 +159,54 @@ docker build -t k4linux-darkweb-monitor .
 ### Ejecutar con Docker:
 
 ```bash
-docker run -it --network host k4linux-darkweb-monitor
-```
-
-### Docker Compose (recomendado):
-
-```yaml
-version: '3.8'
-services:
-  monitor:
-    build: .
-    network_mode: "host"
-    volumes:
-      - ./config:/app/config
-      - ./output:/app/output
+docker run --rm --network host k4linux-darkweb-monitor --test
 ```
 
 ---
 
 ## ⚙️ Configuración
 
-### Archivo `config/settings.yaml`:
+### `config/settings.yaml`:
 
 ```yaml
-tor:
-  proxy: "socks5h://127.0.0.1:9050"
-  timeout: 30
-
-scraping:
-  delay_min: 2
-  delay_max: 5
-  user_agents: "config/user_agents.txt"
-
-alerts:
-  telegram:
-    enabled: false
-    bot_token: ""
-    chat_id: ""
-  discord:
-    enabled: false
-    webhook_url: ""
+telegram:
+  enabled: false          # ponlo en true para enviar alertas
+  token: "your token"
+  chat_id: "your id telegram"
 ```
 
-### Archivo `config/keywords.txt`:
+### `config/keywords.txt`:
 
 ```
 @miempresa.com
-admin@
-password
-credit card
+admin
 database leak
+```
+
+---
+
+## 🧪 Tests
+
+```bash
+pip install pytest
+python -m pytest -q
 ```
 
 ---
 
 ## 🗺️ Roadmap 2026
 
-### Q2 2026 - v1.0 (Estable)
-- [x] Core scraping engine
-- [ ] 10+ módulos de foros .onion
-- [ ] Alertas en tiempo real
+### v1.0 (Estable) — actual
+- [x] Motor de detección offline (Luhn, emails, hashes, keywords)
+- [x] Modos `--test` / `--file` / `--url`
+- [x] Tests + CI
+- [ ] Módulos de foros .onion específicos
 - [ ] Dashboard web básico
 
-### Q3 2026 - v2.0 (ML)
-- [ ] Detección automática de leaks con IA
+### v2.0
+- [ ] Enriquecimiento con HaveIBeenPwned
 - [ ] API REST
 - [ ] Plugins para SIEM (Splunk, Elastic)
-
-### Q4 2026 - v3.0 (Enterprise)
-- [ ] Autenticación multiusuario
-- [ ] Reportes automáticos PDF
-- [ ] Integración con VirusTotal, HaveIBeenPwned
 
 ---
 
@@ -250,7 +253,7 @@ Las contribuciones están abiertas. Sigue estos pasos:
 
 1. **Dale una estrella** ⭐ - Ayuda a que más gente lo descubra
 2. **Haz fork** - Mejora tu versión
-3. **Contribuye** - Mira [CONTRIBUTING.md](CONTRIBUTING.md)
+3. **Contribuye** - Abre un issue o un Pull Request
 4. **Comparte** - En Twitter, LinkedIn, con tu equipo
 
 ## 📢 ¿Usas esto en tu empresa?
@@ -267,9 +270,9 @@ Distribuido bajo la licencia MIT. Ver `LICENSE` para más información.
 
 ## 📞 Contacto
 
-Tu Nombre - [@tu_twitter](https://twitter.com/k4l1nux) - email@ejemplo.com
+Hermes David García Matos (K4L1NUX) - [@cyber_dark_hater](https://youtube.com/@cyber_dark_hater) - cyberdarkdavids@gmail.com
 
-Link del proyecto: [https://github.com/tuusuario/K4L1NUX-DarkWeb-Monitor](https://github.com/tuusuario/K4L1NUX-DarkWeb-Monitor)
+Link del proyecto: [https://github.com/DarkHater01/K4L1NUX-DarkWeb-Monitor](https://github.com/DarkHater01/K4L1NUX-DarkWeb-Monitor)
 
 ---
 

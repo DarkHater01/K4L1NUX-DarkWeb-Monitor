@@ -9,12 +9,12 @@ class Scraper:
         self.client = TorClient()
         self.parser = Parser()
 
-    def run(self, keywords):
+    def fetch(self) -> str:
         logger.info(f"Scrapeando {self.url}")
         html = self.client.get(self.url)
 
         if not html:
             logger.error("No se pudo obtener contenido")
-            return []
+            return ""
 
-        return self.parser.search_keywords(html, keywords)
+        return self.parser.to_text(html)

@@ -5,10 +5,7 @@ __pycache__/
 *.pyd
 .venv/
 venv/
-
-# Output
-output/*
-!output/.gitkeep
+.pytest_cache/
 
 # VSCode
 .vscode/
